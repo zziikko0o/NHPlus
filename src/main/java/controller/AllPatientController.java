@@ -182,7 +182,9 @@ public class AllPatientController {
      * handles a delete-click-event. Calls the delete methods in the {@link PatientDAO} and {@link TreatmentDAO}
      */
     @FXML
-    public void handleDeleteRow() {
+    public void handleLockRow() {
+
+        /*
         TreatmentDAO tDao = DAOFactory.getDAOFactory().createTreatmentDAO();
         Patient selectedItem = this.tableView.getSelectionModel().getSelectedItem();
         try {
@@ -191,8 +193,20 @@ public class AllPatientController {
             this.tableView.getItems().remove(selectedItem);
         } catch (SQLException e) {
             e.printStackTrace();
+        }*/
+
+        TreatmentDAO tDao = DAOFactory.getDAOFactory().createTreatmentDAO();
+        Patient selectedItem = this.tableView.getSelectionModel().getSelectedItem();
+        try {
+            tDao.lockByPid(selectedItem.getPid());
+            dao.lockById(selectedItem.getPid());
+            this.tableView.getItems().remove(selectedItem);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
     }
+
 
     /**
      * handles a add-click-event. Creates a patient and calls the create method in the {@link PatientDAO}

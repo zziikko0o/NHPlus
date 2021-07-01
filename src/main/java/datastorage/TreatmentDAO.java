@@ -19,8 +19,8 @@ public class TreatmentDAO extends DAOimp<Treatment> {
 
     @Override
     protected String getCreateStatementString(Treatment treatment) {
-        return String.format("INSERT INTO treatment (pid, treatment_date, begin, end, description, remarks) VALUES " +
-                "(%d, '%s', '%s', '%s', '%s', '%s')", treatment.getPid(), treatment.getDate(),
+        return String.format("INSERT INTO treatment (pid, tid, treatment_date, begin, end, description, remarks) VALUES " +
+                "(%d, %d, '%s', '%s', '%s', '%s', '%s')", treatment.getPid(),treatment.getTid(), treatment.getDate(),
                 treatment.getBegin(), treatment.getEnd(), treatment.getDescription(),
                 treatment.getRemarks());
     }
@@ -54,7 +54,7 @@ public class TreatmentDAO extends DAOimp<Treatment> {
             LocalTime begin = DateConverter.convertStringToLocalTime(result.getString(4));
             LocalTime end = DateConverter.convertStringToLocalTime(result.getString(5));
             t = new Treatment(result.getLong(1), result.getLong(2),
-                    date, begin, end, result.getString(6), result.getString(7));
+                    date, begin, end, result.getString(6),result.getString(7));
             list.add(t);
         }
         return list;
@@ -73,6 +73,11 @@ public class TreatmentDAO extends DAOimp<Treatment> {
         return String.format("Delete FROM treatment WHERE tid= %d", key);
     }
 
+    @Override
+    protected String getLockStatementString(long key) {
+        return String.format("Update treatment SET \"Lock\"= false WHERE tid= %d", key);
+    }
+
     public List<Treatment> readTreatmentsByPid(long pid) throws SQLException {
         ArrayList<Treatment> list = new ArrayList<Treatment>();
         Treatment object = null;
@@ -86,8 +91,13 @@ public class TreatmentDAO extends DAOimp<Treatment> {
         return String.format("SELECT * FROM treatment WHERE pid = %d", pid);
     }
 
+
     public void deleteByPid(long key) throws SQLException {
         Statement st = conn.createStatement();
         st.executeUpdate(String.format("Delete FROM treatment WHERE pid= %d", key));
+    }
+    public void lockByPid(long key) throws SQLException {
+        Statement st = conn.createStatement();
+        st.executeUpdate(String.format("Update treatment SET \"Lock\"=False WHERE pid= %d", key));
     }
 }

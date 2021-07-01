@@ -15,23 +15,17 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/sqlite-jdbc-3.8.5-pre1.jar!/" />
+          <root url="file://$MODULE_DIR$/.." />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
           <root url="jar://$MODULE_DIR$/lib/sqlite-jdbc-3.8.5-pre1.jar!/" />
+          <root url="file://$MODULE_DIR$/src/main/java" />
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="library" name="javafx-swt" level="application" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:13" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:13" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:13" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:13" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:13" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:13" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:11" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:11" level="project" />
-    <orderEntry type="library" name="Maven: org.hsqldb:hsqldb:2.5.1" level="project" />
+    <orderEntry type="library" name="jrt-fs" level="application" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:13" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:13" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:13" level="project" />

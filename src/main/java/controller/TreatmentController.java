@@ -2,17 +2,21 @@ package controller;
 
 import datastorage.DAOFactory;
 import datastorage.PatientDAO;
+import datastorage.CaregiverDAO;
 import datastorage.TreatmentDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Patient;
+import model.Caregiver;
 import model.Treatment;
 import utils.DateConverter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class TreatmentController {
+    @FXML
+    private Label lblPfleger;
     @FXML
     private Label lblPatientName;
     @FXML
@@ -35,14 +39,17 @@ public class TreatmentController {
     private AllTreatmentController controller;
     private Stage stage;
     private Patient patient;
+    private Caregiver caregiver;
     private Treatment treatment;
 
     public void initializeController(AllTreatmentController controller, Stage stage, Treatment treatment) {
         this.stage = stage;
         this.controller= controller;
         PatientDAO pDao = DAOFactory.getDAOFactory().createPatientDAO();
+        CaregiverDAO pfDao = DAOFactory.getDAOFactory().createCaregiverDAO();
         try {
             this.patient = pDao.read((int) treatment.getPid());
+            this.caregiver = pfDao.read((int) treatment.getPid());
             this.treatment = treatment;
             showData();
         } catch (SQLException e) {
@@ -51,6 +58,7 @@ public class TreatmentController {
     }
 
     private void showData(){
+        this.lblPfleger.setText(caregiver.labelTreatmentView());
         this.lblPatientName.setText(patient.getSurname()+", "+patient.getFirstName());
         this.lblCarelevel.setText(patient.getCareLevel());
         LocalDate date = DateConverter.convertStringToLocalDate(treatment.getDate());
